@@ -1,1 +1,0 @@
-create database agregador_servicos_streaming;
