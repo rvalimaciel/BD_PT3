@@ -8,6 +8,10 @@ public class Main {
     public static void main(String[] args) {
         var db = new DBConfig();
         var repo = new UserAccountRepository(db.connect());
-//        repo.insertUser("abbe", "bb");
+        try {
+            repo.insertUser("abbe", "bb");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
