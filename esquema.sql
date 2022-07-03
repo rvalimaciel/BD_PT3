@@ -82,7 +82,7 @@ create table catalogue (
 		-- Se o nome do serviço mudar, podemos atualizar as referências também.
 		on update cascade 
 		-- Se o serviço for deletado não faz sentido manter seu catálogo.
-		on delete cascade,
+		on delete cascade
 );
 
 create table profile (
@@ -132,7 +132,7 @@ create table movie (
 	-- ou então deve ser uma nota entre 0 e 10, para que exista um limite no qual
 	-- os usuários possam avaliar o filme.
 	constraint movie_rating_should_be_null_or_between_zero_and_ten
-		check(rating is null or rating between 0.0 and 10.0))
+		check(rating is null or rating between 0.0 and 10.0)
 );
 
 create table provides_movie (
@@ -403,7 +403,8 @@ create table provides_season (
 		on delete cascade,
 	
 	constraint provides_season_season_fk
-		foreign key (tv_show_name, tv_show_year, season) references season (tv_show_name, tv_show_year, number)
+		foreign key (tv_show_name, tv_show_year, season)
+		references season (tv_show_name, tv_show_year, number)
 		-- Se o nome da série, ano ou número da temporada forem atualizados, atualize a
 		-- referência.
 		on update cascade
@@ -549,7 +550,7 @@ create table acts_in_episode (
 		references participates_in_episode (episode, artist_name, artist_birthday)
 		-- Se ocorrer alguma alteração no id do episódio ou nome/data de nascimento
 		-- do artista podemos só atualizar a referência.
-		on update cascade,
+		on update cascade
 		-- Se a participação for removida, a atuação tambem deve ser.
 		on delete cascade,
 
