@@ -1,10 +1,13 @@
 package main.java.br.usp.ssc0240.streamingserviceagregator.cli;
 
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAlreadyExistsException;
+import main.java.br.usp.ssc0240.streamingserviceagregator.model.UserAccount;
 import main.java.br.usp.ssc0240.streamingserviceagregator.usecase.UserOperations;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static main.java.br.usp.ssc0240.streamingserviceagregator.cli.InterfaceText.*;
 
 public class Interface {
 
@@ -15,14 +18,7 @@ public class Interface {
     public void mainInterface() {
         int selectedOption = 0;
         while (selectedOption != 3) {
-            String mainMessage = """
-
-                    DIGITE O NÚMERO DA OPERAÇÃO DESEJADA:\s
-                       1.) CRIAR USUÁRIO
-                       2.) BUSCAR USUÁRIO
-                       3.) SAIR
-                    """;
-            System.out.println(mainMessage);
+            System.out.println(mainMessage.getText());
             selectedOption = readNumberInput();
             switch (selectedOption) {
                 case 1:
@@ -51,13 +47,10 @@ public class Interface {
 
 
     public void createUserInterface(){
-        String createUserMessage = "CRIAR USUÁRIO \n";
-        System.out.println(createUserMessage);
-        String usernameMessage = "DIGITE O NOME DE USUÁRIO: \n";
-        System.out.println(usernameMessage);
+        System.out.println(createUserMessage.getText());
+        System.out.println(usernameMessage.getText());
         String username = scanner.next();
-        String passwordMessage = "DIGITE A SENHA DO USUÁRIO: \n";
-        System.out.println(passwordMessage);
+        System.out.println(passwordMessage.getText());
         String password = scanner.next();
 
         try {
@@ -67,6 +60,16 @@ public class Interface {
             System.out.println("Nome de usuário já existe. Tente novamente com outro.");
         }
     }
-    public static void searchUserInterface(){}
+    public void searchUserInterface(){
+        System.out.println(searchUserMessage.getText());
+        System.out.println(usernameMessage.getText());
+        String username = scanner.next();
+
+        UserAccount u = userOperations.readUser(username);
+        if (u != null) {
+            System.out.println(u);
+        }
+
+    }
 
 }

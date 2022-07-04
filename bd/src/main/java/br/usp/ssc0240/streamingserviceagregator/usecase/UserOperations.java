@@ -3,11 +3,13 @@ package main.java.br.usp.ssc0240.streamingserviceagregator.usecase;
 import main.java.br.usp.ssc0240.streamingserviceagregator.config.DBConfig;
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAccountRepositoryException;
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAlreadyExistsException;
+import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserNotFoundException;
+import main.java.br.usp.ssc0240.streamingserviceagregator.model.UserAccount;
 import main.java.br.usp.ssc0240.streamingserviceagregator.repositories.UserAccountRepository;
 
 public class UserOperations {
-    private DBConfig config = new DBConfig();
-    private UserAccountRepository user = new UserAccountRepository(config.connect());
+    private final DBConfig config = new DBConfig();
+    private final UserAccountRepository user = new UserAccountRepository(config.connect());
 
     public void createUser(String username, String password) throws UserAlreadyExistsException {
         try {
@@ -19,11 +21,14 @@ public class UserOperations {
         }
     }
 
-//    public void readUser(String username) {
-//        try {
-//
-//        } catch () {
-//
-//        }
-//    }
+    public UserAccount readUser(String username) {
+        try {
+            return user.findById(username);
+        } catch (UserAccountRepositoryException e) {
+            System.out.println("Erro desconhecido ao tentar encontrar usuário: \n" + e);
+        } catch (UserNotFoundException e) {
+            System.out.println("Usuário " + e.getMessage() + " não encontrado!");
+        }
+        return null;
+    }
 }

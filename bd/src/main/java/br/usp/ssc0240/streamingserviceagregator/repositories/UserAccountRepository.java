@@ -2,6 +2,7 @@ package main.java.br.usp.ssc0240.streamingserviceagregator.repositories;
 
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAccountRepositoryException;
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAlreadyExistsException;
+import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserNotFoundException;
 import main.java.br.usp.ssc0240.streamingserviceagregator.model.UserAccount;
 
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class UserAccountRepository {
         this.connection = connection;
     }
 
-    public UserAccount findById(final String username) throws UserAccountRepositoryException {
+    public UserAccount findById(final String username) throws UserAccountRepositoryException, UserNotFoundException {
 
         final String query = """
                 SELECT u.username, u.password_hash, u.active
@@ -35,10 +36,9 @@ public class UserAccountRepository {
             try (final ResultSet resultSet = statement.executeQuery()) {
 
                 if (resultSet.next()) {
-                    return new UserAccount(resultSet.getString(1), resultSet.getString(2),
-                            resultSet.getBoolean(3));
+                    return new UserAccount(resultSet.getString(1), resultSet.getString(2), resultSet.getBoolean(3));
                 } else {
-                    return null;
+                    throw new UserNotFoundException(username);
                 }
             }
         } catch (final SQLException e) {
@@ -72,6 +72,6 @@ public class UserAccountRepository {
     }
 
     private String encodePassword(final String pw) {
-        return Arrays.toString(Base64.getEncoder().encode(pw.getBytes()));
+        return Base64.getEncoder().encodeToString(pw.getBytes());
     }
 }
