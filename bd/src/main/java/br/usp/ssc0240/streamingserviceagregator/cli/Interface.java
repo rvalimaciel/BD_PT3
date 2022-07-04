@@ -7,24 +7,21 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interface {
-    private String mainMessage = """
 
-            DIGITE O NÚMERO DA OPERAÇÃO DESEJADA:\s
-               1.) CRIAR USUÁRIO
-               2.) BUSCAR USUÁRIO
-               3.) SAIR
-            """;
-    private String createUserMessage = "CRIAR USUÁRIO \n";
-    private String usernameMessage = "DIGITE O NOME DE USUÁRIO: \n";
-    private String passwordMessage = "DIGITE A SENHA DO USUÁRIO: \n";
-
-    private Scanner scanner = new Scanner(System.in);
-    private UserOperations userOperations = new UserOperations();
+    private final Scanner scanner = new Scanner(System.in);
+    private final UserOperations userOperations = new UserOperations();
 
 
     public void mainInterface() {
-        Integer selectedOption = 0;
+        int selectedOption = 0;
         while (selectedOption != 3) {
+            String mainMessage = """
+
+                    DIGITE O NÚMERO DA OPERAÇÃO DESEJADA:\s
+                       1.) CRIAR USUÁRIO
+                       2.) BUSCAR USUÁRIO
+                       3.) SAIR
+                    """;
             System.out.println(mainMessage);
             selectedOption = readNumberInput();
             switch (selectedOption) {
@@ -54,9 +51,12 @@ public class Interface {
 
 
     public void createUserInterface(){
+        String createUserMessage = "CRIAR USUÁRIO \n";
         System.out.println(createUserMessage);
+        String usernameMessage = "DIGITE O NOME DE USUÁRIO: \n";
         System.out.println(usernameMessage);
         String username = scanner.next();
+        String passwordMessage = "DIGITE A SENHA DO USUÁRIO: \n";
         System.out.println(passwordMessage);
         String password = scanner.next();
 

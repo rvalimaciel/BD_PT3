@@ -23,7 +23,7 @@ public class UserAccountRepository {
     public UserAccount findById(final String username) throws UserAccountRepositoryException {
 
         final String query = """
-                SELECT u.username, u.password_hash
+                SELECT u.username, u.password_hash, u.active
                 FROM user_account u
                 WHERE u.username = ?
                 """;
@@ -35,7 +35,8 @@ public class UserAccountRepository {
             try (final ResultSet resultSet = statement.executeQuery()) {
 
                 if (resultSet.next()) {
-                    return new UserAccount(resultSet.getString(1), resultSet.getString(2));
+                    return new UserAccount(resultSet.getString(1), resultSet.getString(2),
+                            resultSet.getBoolean(3));
                 } else {
                     return null;
                 }

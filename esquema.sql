@@ -18,6 +18,9 @@ set search_path to streaming_service_agregator,public;
 create table user_account (
 	username		text	not null,
 	password_hash	text	not null,
+	-- Novas contas são ativas por padrão, e só são
+	-- marcadas como inativas quando são "deletadas".
+	active			boolean not null default(true),
 
 	constraint user_account_pk
 		primary key (username)
@@ -88,6 +91,9 @@ create table catalogue (
 create table profile (
 	"user"	text	not null,
 	name	text	not null,
+	-- Novos perfis são ativos por padrão, e só são
+	-- marcadas como inativos quando são "deletados".
+	active	boolean not null default(true),
 
 	constraint profile_pk
 		primary key ("user", name),
@@ -325,9 +331,11 @@ create table movie_session (
 		-- Se o nome de usuário ou perfil forem alterados basta propagar a atualização.
 		on update cascade
 		-- Se o usuário for deletado, o histórico de visualizações também é removido.
-		-- Isso causa a perda de uma avaliação do filme, mas se utilazassemos "restrict"
-		-- não poderiamos deletar a maioria das contas de usuário.
-		on delete cascade,
+		-- Isso causa a perda de uma avaliação do filme, mas ao utilazar "restrict"
+		-- não poderemos deletar a maioria das contas de usuário.
+		-- Para isso existe campo "active" nos perfis e contas que na verdade são na
+		-- verdade apenas desativados em vez de serem deletados.
+		on delete restrict,
 
 	-- A nota do filme pode não estar presente se o filme ainda não foi avaliado,
 	-- ou então deve ser uma nota entre 0 e 10, para que exista um limite no qual
@@ -593,9 +601,11 @@ create table episode_session (
 		-- Se o nome de usuário ou perfil forem alterados basta propagar a atualização.
 		on update cascade
 		-- Se o usuário for deletado, o histórico de visualizações também é removido.
-		-- Isso causa a perda de uma avaliação do filme, mas se utilazassemos "restrict"
+		-- Isso causa a perda de uma avaliação do filme, mas ao utilzarmos "restrict"
 		-- não poderiamos deletar a maioria das contas de usuário.
-		on delete cascade,
+		-- Para isso existe campo "active" nos perfis e contas que na verdade são na
+		-- verdade apenas desativados em vez de serem deletados.
+		on delete restrict,
 
 	-- A nota do filme pode não estar presente se o filme ainda não foi avaliado,
 	-- ou então deve ser uma nota entre 0 e 10, para que exista um limite no qual
