@@ -6,3 +6,4 @@ public class UserAccountRepositoryException extends Exception {
         super(msg, cause);
     }
 }
+

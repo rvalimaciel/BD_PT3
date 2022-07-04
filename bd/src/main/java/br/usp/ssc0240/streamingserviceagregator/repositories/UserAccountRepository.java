@@ -1,6 +1,7 @@
 package main.java.br.usp.ssc0240.streamingserviceagregator.repositories;
 
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAccountRepositoryException;
+import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAlreadyExistsException;
 import main.java.br.usp.ssc0240.streamingserviceagregator.model.UserAccount;
 
 import java.sql.Connection;
@@ -56,10 +57,9 @@ public class UserAccountRepository {
             statement.setString(2, encodePassword(password));
 
             statement.executeUpdate();
-            System.out.println("User " + username + " created.");
         } catch (final SQLException e) {
             if (Objects.equals(e.getSQLState(), "23505")) {
-                throw new UserAccountRepositoryException("Error! User " + username + " already exists! ", e);
+                throw new UserAlreadyExistsException("Error! User " + username + " already exists! ", e);
             } else {
                 throw new UserAccountRepositoryException("Failed to create user " + username + ": ", e);
             }
