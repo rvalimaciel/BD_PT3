@@ -14,6 +14,12 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
+		<fully.qualified.main.class>
+			main.java.br.usp.ssc0240.streamingserviceagregator.Main
+		</fully.qualified.main.class>
+
+		<postgresql.version>42.4.0</postgresql.version>
+		<assembly.version>3.4.0</assembly.version>
 		<surefire.version>3.0.0-M7</surefire.version>
 		<failsafe.version>3.0.0-M7</failsafe.version>
 		<junit-jupiter.version>5.8.2</junit-jupiter.version>
@@ -25,7 +31,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.4.0</version>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
@@ -71,6 +77,31 @@
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Assembly -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${assembly.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+						<goal>single</goal>
+						</goals>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>${fully.qualified.main.class}</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

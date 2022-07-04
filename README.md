@@ -19,3 +19,18 @@ Delete database:
 ```sh
 docker volume rm bd_pt3_postgres-data
 ```
+
+## Build Application
+
+Build the application using [maven](https://maven.apache.org/):
+```sh
+cd bd
+mvn clean package
+```
+
+## Run the Application
+
+Run the application:
+```sh
+java -jar ./bdtarget/streaming-service-agregator-1.0.x-SNAPSHOT-jar-with-dependencies.jar
+```
