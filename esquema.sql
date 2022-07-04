@@ -276,11 +276,12 @@ create table acts_in_movie (
 	movie_year		integer	not null,
 	artist_name		text	not null,
 	artist_birthday	date	not null,
+	character_name	text	not null,
 	act_type		text	not null,
 	role_type		text	not null,
 
 	constraint acts_in_movie_pk
-		primary key (movie_name, movie_year, artist_name, artist_birthday),
+		primary key (movie_name, movie_year, artist_name, artist_birthday, character_name),
 
 	constraint acts_in_movie_participates_in_movie_fk
 		foreign key (movie_name, movie_year, artist_name, artist_birthday)
@@ -547,11 +548,12 @@ create table acts_in_episode (
 	episode			uuid	not null,
 	artist_name		text	not null,
 	artist_birthday	date	not null,
+	character_name	text	not null,
 	act_type		text	not null,
 	role_type		text	not null,
 
 	constraint acts_in_episode_pk
-		primary key (episode, artist_name, artist_birthday),
+		primary key (episode, artist_name, artist_birthday, character_name),
 
 	constraint acts_in_episode_participates_in_episode_fk
 		foreign key (episode, artist_name, artist_birthday)
