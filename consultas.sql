@@ -172,3 +172,53 @@ window w as (
 	order by e.number asc
 	rows between unbounded preceding and unbounded following
 );
+
+
+select distinct a.*, avg((m.rating + ts.rating) / 2) as rating, count(m.name) as movies_count,
+  count(ts.name) as tv_shows_count
+from
+  acts_in_movie am
+inner join movie m
+  on (am.movie_name = m.name and am.movie_year = m.year)
+inner join acts_in_episode ae 
+  on (am.artist_name = ae.artist_name and am.artist_birthday = ae.artist_birthday)
+inner join episode e
+  on (ae.episode = e.id)
+inner join tv_show ts
+  on (e.tv_show_name = ts.name and e.tv_show_year = ts.year)
+inner join artist a
+  on (am.artist_name = a.name and am.artist_birthday = a.birthday)
+where
+  am.act_type = 'Acting'
+group by
+  (a.name, a.birthday)
+order by
+  avg((m.rating + ts.rating) / 2)
+
+set search_path to streaming_service_agregator, public;
+
+select distinct on (m.name, ts.name)
+  a.*, ((m.rating + ts.rating) / 2) as rating, *
+--a.*, m.name, m.rating, count(m.name) over (partition by m.name), e.id, e.season, ts.name, ts.rating
+ --a.*, count(m.name), count(distinct m.name), count(ts.name), count(distinct ts.name), avg(m.rating)
+ -- a.*, -- avg((m.rating + ts.rating) / 2) as rating, count(m.name) as movies_count,
+  --count(ts.name) as tv_shows_count
+from
+  artist a
+  
+left join acts_in_movie am
+  on (a.name = am.artist_name and a.birthday = am.artist_birthday)
+left join movie m
+  on (am.movie_name = m.name and am.movie_year = m.year)
+
+left join acts_in_episode ae
+  on (a.name = ae.artist_name and a.birthday = ae.artist_birthday)
+
+left join episode e
+  on (ae.episode = e.id)
+left join tv_show ts
+  on (e.tv_show_name = ts.name and e.tv_show_year = ts.year)
+--order by ((m.rating + ts.rating) / 2)
+--group by (a.name, a.birthday)
+--  avg((m.rating + ts.rating) / 2)
+
