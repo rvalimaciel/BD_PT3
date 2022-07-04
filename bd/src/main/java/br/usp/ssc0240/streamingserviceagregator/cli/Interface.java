@@ -1,8 +1,6 @@
 package main.java.br.usp.ssc0240.streamingserviceagregator.cli;
 
-import main.java.br.usp.ssc0240.streamingserviceagregator.config.DBConfig;
 import main.java.br.usp.ssc0240.streamingserviceagregator.exceptions.UserAlreadyExistsException;
-import main.java.br.usp.ssc0240.streamingserviceagregator.repositories.UserAccountRepository;
 import main.java.br.usp.ssc0240.streamingserviceagregator.usecase.UserOperations;
 
 import java.util.InputMismatchException;
