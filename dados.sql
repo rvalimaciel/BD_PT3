@@ -50,13 +50,20 @@ values
 
 insert into movie
 values
-	('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.'),
+	('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.',
+		7.0),
+
+	('Star Wars: Episode II - Attack of the Clones', 2002,
+		'todo',
+		4.0),
 
 	('Star Wars: Episode III - Revenge of the Sith', 2005,
-		'Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy.'),
+		'Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy.',
+		8.0),
 
 	('Star Wars: The Clone Wars', 2008,
-		'Set between Episode II and III, The Clone Wars is the first computer animated Star Wars film. Anakin and Obi Wan must find out who kidnapped Jabba the Hutt''s son and return him safely. The Seperatists will try anything to stop them and ruin any chance of a diplomatic agreement between the Hutts and the Republic.');
+		'Set between Episode II and III, The Clone Wars is the first computer animated Star Wars film. Anakin and Obi Wan must find out who kidnapped Jabba the Hutt''s son and return him safely. The Seperatists will try anything to stop them and ruin any chance of a diplomatic agreement between the Hutts and the Republic.',
+		5.0);
 
 
 insert into provides_movie
@@ -79,6 +86,8 @@ values ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br');
 insert into participates_in_movie
 values
 	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting'),
+	('Star Wars: Episode II - Attack of the Clones', 2002, 'Hayden Christensen', '1981-04-19',
+		'Acting'),
 	('Star Wars: Episode III - Revenge of the Sith', 2005, 'Hayden Christensen', '1981-04-19',
 		'Acting'),
 	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31', 'Acting');
@@ -86,6 +95,8 @@ values
 insert into acts_in_movie
 values
 	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Achilles', 'Acting', 'Main'),
+	('Star Wars: Episode II - Attack of the Clones', 2002, 'Hayden Christensen', '1981-04-19',
+		'Anakin Skywalker', 'Acting', 'Main'),
 	('Star Wars: Episode III - Revenge of the Sith', 2005, 'Hayden Christensen', '1981-04-19',
 		'Anakin Skywalker', 'Acting', 'Main'),
 	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31',
@@ -113,10 +124,10 @@ insert into tv_show
 values
 	('Friends', 1994,
 		'Seis amigos, três homens e três mulheres, enfrentam a vida e os amores em Nova York e adoram passar o tempo livre na cafeteria Central Perk.',
-		null),
+		8.0),
 	('Star Wars: The Clone Wars', 2008,
 		'As The Clone Wars sweep through the galaxy, the heroic Jedi Knights struggle to maintain order and restore peace. More and more systems are falling prey to the forces of the Dark Side as the Galactic Republic slips further and further under the sway of the Separatists and their never-ending droid army.',
-		null);
+		9.5);
 
 insert into season
 values
