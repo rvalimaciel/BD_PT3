@@ -9,6 +9,12 @@ values ('dmdemoura', 'todo-use-real-hash');
 insert into profile
 values ('dmdemoura', 'Amanda');
 
+insert into profile
+values ('dmdemoura', 'Mãe');
+
+insert into profile
+values ('dmdemoura', 'Pai');
+
 insert into streaming_service
 values ('netflix', 10, 'root');
 
@@ -40,7 +46,18 @@ insert into acts_in_movie
 values ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main');
 
 insert into movie_session
+values ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-01 16:01:14', '2 hours', true, 8.0);
+
+insert into movie_session
 values ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-08 04:05:06', '10 minutes', false, null);
+insert into movie_session
+values ('Tróia', 2004, 'dmdemoura', 'Pai', '2004-05-11 13:00:00', '2 hours', true, 10.0);
+
+insert into movie_session
+values ('Tróia', 2004, 'dmdemoura', 'Pai', '2022-02-13 18:05:26', '1 hours', true, 9.0);
+
+insert into movie_session
+values ('Tróia', 2004, 'dmdemoura', 'Mãe', '2022-02-13 18:05:26', '2 hours', true, 5.0);
 
 insert into tv_show
 values ('Friends', 1994, 'Seis amigos, três homens e três mulheres, enfrentam a vida e os amores em Nova York e adoram passar o tempo livre na cafeteria Central Perk.', null);
