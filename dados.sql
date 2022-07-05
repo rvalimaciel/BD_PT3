@@ -30,6 +30,7 @@ values
 insert into catalogue
 values
 	('Netflix', 'USA'),
+	('Netflix', 'UK'),
 	('Netflix', 'brasil'),
 	('Disney+', 'USA'),
 	('Disney+', 'brasil');
@@ -58,7 +59,7 @@ values
 		7.0),
 
 	('Star Wars: Episode II - Attack of the Clones', 2002,
-		'todo',
+		'Ten years after initially meeting, Anakin Skywalker shares a forbidden romance with Padmé Amidala, while Obi-Wan Kenobi investigates an assassination attempt on the senator and discovers a secret clone army crafted for the Jedi.',
 		4.0),
 
 	('Star Wars: Episode III - Revenge of the Sith', 2005,
@@ -68,7 +69,10 @@ values
 	('Star Wars: The Clone Wars', 2008,
 		'Set between Episode II and III, The Clone Wars is the first computer animated Star Wars film. Anakin and Obi Wan must find out who kidnapped Jabba the Hutt''s son and return him safely. The Seperatists will try anything to stop them and ruin any chance of a diplomatic agreement between the Hutts and the Republic.',
 		5.0),
-	('A Vida de Brian', 1979, 'Brian Cohen é um judeu como outro qualquer, mas, em uma série de eventos ridículos, foi confundido com o Messias desde que nasceu, e, desde então, mantém essa fama e se torna lider de um movimento religioso. Um dia, ele é levado até Pôncio Pilatos e condenado à crucificação.');
+
+	('A Vida de Brian', 1979,
+		'Brian Cohen é um judeu como outro qualquer, mas, em uma série de eventos ridículos, foi confundido com o Messias desde que nasceu, e, desde então, mantém essa fama e se torna lider de um movimento religioso. Um dia, ele é levado até Pôncio Pilatos e condenado à crucificação.',
+		null);
 
 insert into provides_movie
 values  ('Netflix', 'brasil', 'Tróia', 2004, 'www.netflix.com/troia-filme-online-free', '1080p', false, null, false, null, null, true),
@@ -100,8 +104,8 @@ values
 
 insert into acts_in_movie
 values
-	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main'),
-	('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting', 'Supporting'),
+	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Achilles', 'Acting', 'Main'),
+	('Tróia', 2004, 'brad pitts', '2000-12-18', 'Not Achilles', 'Acting', 'Supporting'),
 	('Star Wars: Episode II - Attack of the Clones', 2002, 'Hayden Christensen', '1981-04-19',
 		'Anakin Skywalker', 'Acting', 'Main'),
 	('Star Wars: Episode III - Revenge of the Sith', 2005, 'Hayden Christensen', '1981-04-19',
@@ -206,10 +210,9 @@ values
 
 insert into participates_in_episode
 values
-	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
-	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting'),
 	-- Friends S01E01
 	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting'),
 	-- SWTCW S01E01
 	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c', 'Dee Bradley Baker', '1962-08-31', 'Acting'),
 	-- SWTCW S01E02
@@ -220,11 +223,11 @@ values
 
 insert into acts_in_episode
 values
-	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting', 'Supporting'),
-	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting', 'Supporting'),
 	-- Friends S01E01
 	('4b504e51-944c-4fcc-897b-f76ec0ecb66e',
 		'brad pitt', '1963-12-18', 'Will Colbert', 'Acting', 'Supporting'),
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e',
+		'brad pitts', '2000-12-18', 'will colberts', 'Acting', 'Supporting'),
 
 	-- SWTCW S01E01
 	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c',
