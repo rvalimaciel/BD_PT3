@@ -1,10 +1,12 @@
 set search_path to streaming_service_agregator, public;
 
 insert into admin_account
-values ('root', 'todo-use-real-hash');
+values  ('root', 'todo-use-real-hash'),
+		('service-account', 'soinawircmiew');
 
 insert into user_account
-values ('dmdemoura', 'todo-use-real-hash');
+values  ('dmdemoura', 'todo-use-real-hash'),
+		('rvalim', 'aoicwmiewmcoi');
 
 insert into profile
 values
@@ -30,39 +32,40 @@ values
 	('Disney+', 'brasil');
 
 insert into artist
-values ('brad pitt', '1963-12-18', 'ator muito famosão');
+values  ('brad pitt', '1963-12-18', 'ator muito famosão'),
+		('brad pitts', '2000-12-18', 'ator pouco famoso');
 
 insert into movie
-values ('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.');
+values  ('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.'),
+		('A Vida de Brian', 1979, 'Brian Cohen é um judeu como outro qualquer, mas, em uma série de eventos ridículos, foi confundido com o Messias desde que nasceu, e, desde então, mantém essa fama e se torna lider de um movimento religioso. Um dia, ele é levado até Pôncio Pilatos e condenado à crucificação.');
 
 insert into provides_movie
-values ('Netflix', 'brasil', 'Tróia', 2004, 'www.netflix.com/troia-filme-online-free', '1080p', false, null, false, null, null, true);
+values  ('Netflix', 'brasil', 'Tróia', 2004, 'www.netflix.com/troia-filme-online-free', '1080p', false, null, false, null, null, true),
+		('Netflix', 'UK', 'A Vida de Brian', 1979, 'www.netflix.com/a-vida-de-brian-filme-online-free', '1080p', false, null, false, null, null, true);
 
 insert into movie_language_audio
-values ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br');
+values  ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br'),
+		('Netflix', 'brasil', 'Tróia', 2004, 'en-Us');
 
 insert into movie_language_subtitle
-values ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br');
+values  ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br'),
+		('Netflix', 'brasil', 'Tróia', 2004, 'en-Us');
 
 insert into participates_in_movie
-values ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting');
+values  ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting'),
+		('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting');
 
 insert into acts_in_movie
-values ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main');
+values  ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main'),
+		('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting', 'Supporting');
 
 insert into movie_session
-values ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-01 16:01:14', '2 hours', true, 8.0);
-
-insert into movie_session
-values ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-08 04:05:06', '10 minutes', false, null);
-insert into movie_session
-values ('Tróia', 2004, 'dmdemoura', 'Pai', '2004-05-11 13:00:00', '2 hours', true, 10.0);
-
-insert into movie_session
-values ('Tróia', 2004, 'dmdemoura', 'Pai', '2022-02-13 18:05:26', '1 hours', true, 9.0);
-
-insert into movie_session
-values ('Tróia', 2004, 'dmdemoura', 'Mãe', '2022-02-13 18:05:26', '2 hours', true, 5.0);
+values  ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-01 16:01:14', '2 hours', true, 8.0),
+		('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-05-03 16:01:14', '15 minutes', true, 8.0),
+		('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-08 04:05:06', '10 minutes', false, null),
+		('Tróia', 2004, 'dmdemoura', 'Pai', '2004-05-11 13:00:00', '2 hours', true, 10.0),
+		('Tróia', 2004, 'dmdemoura', 'Pai', '2022-02-13 18:05:26', '1 hours', true, 9.0),
+		('Tróia', 2004, 'dmdemoura', 'Mãe', '2022-02-13 18:05:26', '2 hours', true, 5.0);
 
 insert into tv_show
 values
@@ -91,10 +94,12 @@ values
 
 
 insert into season_language_audio
-values ('Netflix', 'brasil', 'Friends', 1994, 1, 'en-Us');
+values  ('Netflix', 'brasil', 'Friends', 1994, 1, 'en-Us'),
+		('Netflix', 'brasil', 'Friends', 1994, 1, 'pt-Br');
 
 insert into season_language_subtitle
-values ('Netflix', 'brasil', 'Friends', 1994, 1, 'pt-Br');
+values  ('Netflix', 'brasil', 'Friends', 1994, 1, 'pt-Br'),
+		('Netflix', 'brasil', 'Friends', 1994, 1, 'en-Us');
 
 insert into episode
 values
@@ -146,10 +151,12 @@ values
 	('e575d20f-ccd8-4f28-b8e4-9761a9c3dc59', 'Star Wars: The Clone Wars', 2008, 1, 22);
 
 insert into participates_in_episode
-values ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting');
+values  ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
+		('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting');
 
 insert into acts_in_episode
-values ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting', 'Supporting');
+values  ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting', 'Supporting'),
+		('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting', 'Supporting');
 
 insert into episode_session
 values 
