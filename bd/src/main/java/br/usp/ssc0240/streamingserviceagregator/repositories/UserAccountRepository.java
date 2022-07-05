@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
 
+//  Classe que de fato executa as consultas SQL
 public class UserAccountRepository {
 
     private final Connection connection;
@@ -21,6 +22,7 @@ public class UserAccountRepository {
         this.connection = connection;
     }
 
+    //  Função que busca um usuário. Pode gerar duas exceções, uma genérica e uma caso ele não for encontrado
     public UserAccount findById(final String username) throws UserAccountRepositoryException, UserNotFoundException {
 
         final String query = """
@@ -46,6 +48,7 @@ public class UserAccountRepository {
         }
     }
 
+    //  Função que insere um usuário.
     public void insertUser(final String username, final String password) throws UserAccountRepositoryException {
         final String query = """
                 INSERT INTO user_account
@@ -67,10 +70,12 @@ public class UserAccountRepository {
         }
     }
 
+    // Função que prepara a consulta paramétrica
     private PreparedStatement prepareStatement(final String query) throws SQLException {
         return connection.prepareStatement(query);
     }
 
+    //  Aplica base64 na senha do usuário
     private String encodePassword(final String pw) {
         return Base64.getEncoder().encodeToString(pw.getBytes());
     }

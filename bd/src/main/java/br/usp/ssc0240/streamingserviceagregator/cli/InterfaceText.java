@@ -1,5 +1,7 @@
 package main.java.br.usp.ssc0240.streamingserviceagregator.cli;
 
+//  Enum que guarda as strings que compõe a CLI
+
 public enum InterfaceText {
     mainMessage("""
             DIGITE O NÚMERO DA OPERAÇÃO DESEJADA:\s

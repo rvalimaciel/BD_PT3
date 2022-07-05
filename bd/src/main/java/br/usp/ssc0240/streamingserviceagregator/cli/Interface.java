@@ -9,12 +9,13 @@ import java.util.Scanner;
 
 import static main.java.br.usp.ssc0240.streamingserviceagregator.cli.InterfaceText.*;
 
+//  Classe que implementa a CLI.
 public class Interface {
 
     private final Scanner scanner = new Scanner(System.in);
     private final UserOperations userOperations = new UserOperations();
 
-
+    //  Função do loop principal da interface
     public void mainInterface() {
         int selectedOption = 0;
         while (selectedOption != 3) {
@@ -35,6 +36,7 @@ public class Interface {
         }
     }
 
+    //  Função que faz leitura e tratamento de erro de inputs de tipo int
     private int readNumberInput() {
         try {
             return scanner.nextInt();
@@ -45,7 +47,7 @@ public class Interface {
         }
     }
 
-
+    //  Função que faz leitura dos inputs de criação de usuário, chama função para inserir no banco. Tratamento de erros.
     public void createUserInterface(){
         System.out.println(createUserMessage.getText());
         System.out.println(usernameMessage.getText());
@@ -60,6 +62,8 @@ public class Interface {
             System.out.println("Nome de usuário já existe. Tente novamente com outro.");
         }
     }
+
+    //  Função que lê inputs para busca de usuários e realiza a operação.
     public void searchUserInterface(){
         System.out.println(searchUserMessage.getText());
         System.out.println(usernameMessage.getText());

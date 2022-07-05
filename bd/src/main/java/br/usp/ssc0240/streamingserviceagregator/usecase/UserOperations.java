@@ -11,6 +11,7 @@ public class UserOperations {
     private final DBConfig config = new DBConfig();
     private final UserAccountRepository user = new UserAccountRepository(config.connect());
 
+    // Função que chama a criação de usuário
     public void createUser(String username, String password) throws UserAlreadyExistsException {
         try {
             user.insertUser(username, password);
@@ -21,6 +22,7 @@ public class UserOperations {
         }
     }
 
+    // Função que chama a leitura de usuário
     public UserAccount readUser(String username) {
         try {
             return user.findById(username);
