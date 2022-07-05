@@ -1,8 +1,10 @@
 set search_path to streaming_service_agregator, public;
 
 insert into admin_account
-values  ('root', 'todo-use-real-hash'),
-		('service-account', 'soinawircmiew');
+values
+	('root', 'todo-use-real-hash'),
+	('valdisnei', 'todo-use-real-hash'),
+	('service-account', 'soinawircmiew');
 
 insert into user_account
 values  ('dmdemoura', 'todo-use-real-hash'),
@@ -17,7 +19,7 @@ values
 insert into streaming_service
 values
 	('Netflix', 25.90, 'root'),
-	('Disney+', 27.90, 'root');
+	('Disney+', 27.90, 'valdisnei');
 
 insert into subscribe
 values
@@ -32,16 +34,50 @@ values
 	('Disney+', 'brasil');
 
 insert into artist
-values  ('brad pitt', '1963-12-18', 'ator muito famosão'),
-		('brad pitts', '2000-12-18', 'ator pouco famoso');
+values
+	('brad pitt', '1963-12-18', 'ator muito famosão'),
+
+	('Dee Bradley Baker', '1962-08-31',
+		'Dee Bradley Baker is an American voice actor from Indiana. He first became known for voicing Olmec in Legends of the Hidden Temple before voicing Daffy Duck in Space Jam. He is well-known for voicing Klaus in American Dad, the Clone Troopers in several Star Wars media, Ra''s al Ghul in Batman: Arkham City, Momo and Appa in Avatar: The Last Airbender, Perry the Platypus in Phineas & Ferb, Sunny Jim in Lobo, Kevin the Sea Cucumber in SpongeBob SquarePants, Numbuh Four in Codename: Kids Next Door and Gravemind in Halo 2.
+
+- IMDb Mini Biography By: Christian Frates'),
+
+	('Ashley Eckstein', '1981-09-22',
+		'Ashley was born in Louisville, Kentucky but was raised in Orlando, Florida. Often playing the antagonist, Ashley played Muffy, the popular nemesis on That''s So Raven. Besides acting, Ashley loves to design and make clothes. Ashley''s parents are Tony and Sharon Drane. She also has three siblings, Michael, Tara and Taylor.
+
+- IMDb Mini Biography By: Anonymous'),
+
+	('Hayden Christensen', '1981-04-19',
+		'Hayden Christensen was born April 19, 1981 in Vancouver, British Columbia, Canada. His parents, Alie and David Christensen, are in the communications business. He is of Danish (father) and Swedish and Italian (mother) descent. Hayden grew up in Markham, Ontario, with siblings Kaylen, Hejsa, and Tove. Hayden set out to become an actor when a chance encounter at the age of eight placed him in his first commercial, for Pringles. When he was thirteen, he had starring roles in several dramatic television series.'),
+	('brad pitts', '2000-12-18', 'ator pouco famoso');
 
 insert into movie
-values  ('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.'),
-		('A Vida de Brian', 1979, 'Brian Cohen é um judeu como outro qualquer, mas, em uma série de eventos ridículos, foi confundido com o Messias desde que nasceu, e, desde então, mantém essa fama e se torna lider de um movimento religioso. Um dia, ele é levado até Pôncio Pilatos e condenado à crucificação.');
+values
+	('Tróia', 2004, 'O filme conta a história da batalha entre os reinos antigos de Troia e Esparta. Durante uma visita ao rei de Esparta, Menelau, o príncipe troiano Paris se apaixona pela esposa do rei, Helena, e a leva de volta para Troia. O irmão de Menelau, o rei Agamenon, que já havia derrotado todos os exércitos na Grécia, encontra o pretexto que faltava para declarar guerra contra Troia, o único reino que o impede de controlar o Mar Egeu.',
+		7.0),
+
+	('Star Wars: Episode II - Attack of the Clones', 2002,
+		'todo',
+		4.0),
+
+	('Star Wars: Episode III - Revenge of the Sith', 2005,
+		'Three years into the Clone Wars, the Jedi rescue Palpatine from Count Dooku. As Obi-Wan pursues a new threat, Anakin acts as a double agent between the Jedi Council and Palpatine and is lured into a sinister plan to rule the galaxy.',
+		8.0),
+
+	('Star Wars: The Clone Wars', 2008,
+		'Set between Episode II and III, The Clone Wars is the first computer animated Star Wars film. Anakin and Obi Wan must find out who kidnapped Jabba the Hutt''s son and return him safely. The Seperatists will try anything to stop them and ruin any chance of a diplomatic agreement between the Hutts and the Republic.',
+		5.0),
+	('A Vida de Brian', 1979, 'Brian Cohen é um judeu como outro qualquer, mas, em uma série de eventos ridículos, foi confundido com o Messias desde que nasceu, e, desde então, mantém essa fama e se torna lider de um movimento religioso. Um dia, ele é levado até Pôncio Pilatos e condenado à crucificação.');
 
 insert into provides_movie
 values  ('Netflix', 'brasil', 'Tróia', 2004, 'www.netflix.com/troia-filme-online-free', '1080p', false, null, false, null, null, true),
-		('Netflix', 'UK', 'A Vida de Brian', 1979, 'www.netflix.com/a-vida-de-brian-filme-online-free', '1080p', false, null, false, null, null, true);
+	('Disney+', 'brasil', 'Star Wars: Episode III - Revenge of the Sith', 2005,
+		'www.disneyplus.com/stream/rots', '1080p',
+		false, null, false, null, null, true),
+	('Disney+', 'brasil', 'Star Wars: The Clone Wars', 2008,
+		'www.disneyplus.com/stream/tcw-movie', '540p',
+		false, null, false, null, null, true),
+	('Netflix', 'UK', 'A Vida de Brian', 1979, 'www.netflix.com/a-vida-de-brian-filme-online-free', '1080p', false, null, false, null, null, true);
 
 insert into movie_language_audio
 values  ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br'),
@@ -52,12 +88,29 @@ values  ('Netflix', 'brasil', 'Tróia', 2004, 'pt-Br'),
 		('Netflix', 'brasil', 'Tróia', 2004, 'en-Us');
 
 insert into participates_in_movie
-values  ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting'),
-		('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting');
+values
+	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting'),
+	('Star Wars: Episode II - Attack of the Clones', 2002, 'Hayden Christensen', '1981-04-19',
+		'Acting'),
+	('Star Wars: Episode III - Revenge of the Sith', 2005, 'Hayden Christensen', '1981-04-19',
+		'Acting'),
+	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31', 'Acting'),
+	('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting');
 
 insert into acts_in_movie
-values  ('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main'),
-		('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting', 'Supporting');
+values
+	('Tróia', 2004, 'brad pitt', '1963-12-18', 'Acting', 'Main'),
+	('Tróia', 2004, 'brad pitts', '2000-12-18', 'Acting', 'Supporting'),
+	('Star Wars: Episode II - Attack of the Clones', 2002, 'Hayden Christensen', '1981-04-19',
+		'Anakin Skywalker', 'Acting', 'Main'),
+	('Star Wars: Episode III - Revenge of the Sith', 2005, 'Hayden Christensen', '1981-04-19',
+		'Anakin Skywalker', 'Acting', 'Main'),
+	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31',
+		'Captain Rex', 'Dubbing', 'Main'),
+	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31',
+		'Commander Cody', 'Dubbing', 'Main'),
+	('Star Wars: The Clone Wars', 2008, 'Dee Bradley Baker', '1962-08-31',
+		'Commander Fox', 'Dubbing', 'Supporting');
 
 insert into movie_session
 values  ('Tróia', 2004, 'dmdemoura', 'Amanda', '2022-01-01 16:01:14', '2 hours', true, 8.0),
@@ -71,10 +124,10 @@ insert into tv_show
 values
 	('Friends', 1994,
 		'Seis amigos, três homens e três mulheres, enfrentam a vida e os amores em Nova York e adoram passar o tempo livre na cafeteria Central Perk.',
-		null),
+		8.0),
 	('Star Wars: The Clone Wars', 2008,
 		'As The Clone Wars sweep through the galaxy, the heroic Jedi Knights struggle to maintain order and restore peace. More and more systems are falling prey to the forces of the Dark Side as the Galactic Republic slips further and further under the sway of the Separatists and their never-ending droid army.',
-		null);
+		9.5);
 
 insert into season
 values
@@ -151,12 +204,53 @@ values
 	('e575d20f-ccd8-4f28-b8e4-9761a9c3dc59', 'Star Wars: The Clone Wars', 2008, 1, 22);
 
 insert into participates_in_episode
-values  ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
-		('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting');
+values
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting'),
+	-- Friends S01E01
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting'),
+	-- SWTCW S01E01
+	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c', 'Dee Bradley Baker', '1962-08-31', 'Acting'),
+	-- SWTCW S01E02
+	('b1a028bd-b69c-41ca-926c-58f4212585f7', 'Ashley Eckstein', '1981-09-22', 'Acting'),
+	('b1a028bd-b69c-41ca-926c-58f4212585f7', 'Dee Bradley Baker', '1962-08-31', 'Acting');
+
+
 
 insert into acts_in_episode
-values  ('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting', 'Supporting'),
-		('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting', 'Supporting');
+values
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitt', '1963-12-18', 'Acting', 'Supporting'),
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e', 'brad pitts', '2000-12-18', 'Acting', 'Supporting'),
+	-- Friends S01E01
+	('4b504e51-944c-4fcc-897b-f76ec0ecb66e',
+		'brad pitt', '1963-12-18', 'Will Colbert', 'Acting', 'Supporting'),
+
+	-- SWTCW S01E01
+	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c',
+		'Dee Bradley Baker', '1962-08-31', 'Commander Thire', 'Dubbing', 'Main'),
+
+	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c',
+		'Dee Bradley Baker', '1962-08-31', 'Jek', 'Dubbing', 'Supporting'),
+
+	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c',
+		'Dee Bradley Baker', '1962-08-31', 'Rys', 'Dubbing', 'Supporting'),
+
+	('9619b3c5-3b8e-423a-a7aa-43219fbeef1c',
+		'Dee Bradley Baker', '1962-08-31', 'Zak', 'Dubbing', 'Supporting'),
+
+	-- SWTCW S01E02
+	('b1a028bd-b69c-41ca-926c-58f4212585f7',
+		'Ashley Eckstein', '1981-09-22', 'Ahsoka Tano', 'Dubbing', 'Main'),
+
+	('b1a028bd-b69c-41ca-926c-58f4212585f7',
+		'Dee Bradley Baker', '1962-08-31', 'Commander Wolffe', 'Dubbing', 'Main'),
+
+	('b1a028bd-b69c-41ca-926c-58f4212585f7',
+		'Dee Bradley Baker', '1962-08-31', 'Commander Cody', 'Dubbing', 'Supporting'),
+
+	('b1a028bd-b69c-41ca-926c-58f4212585f7',
+		'Dee Bradley Baker', '1962-08-31', 'Captain Rex', 'Dubbing', 'Supporting');
+
 
 insert into episode_session
 values 
