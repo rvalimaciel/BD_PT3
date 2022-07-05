@@ -1,9 +1,13 @@
 set search_path to streaming_service_agregator, public;
 
--- Achar todas as séries em que um ator tem um papel principal, e está inclusa
--- na assinatura de um serviço que usuário assina.
-select ts.*
-from subscribe sub
+
+--------------------------------------------------------------------------------
+-- 1. Buscar séries por ator
+--------------------------------------------------------------------------------
+select
+	ts.*
+from
+	subscribe sub
 
 inner join catalogue c
 	on (c.service = sub.service)
@@ -20,20 +24,35 @@ inner join acts_in_episode ae
 	
 inner join tv_show ts
 	on (e.tv_show_name = ts.name and e.tv_show_year = ts.year)
+
 where
+	-- Filtra pelo usuário logado
 	sub."user" = 'dmdemoura'
 	and
+	-- Filtra pelo país em que usuário se encontra.
 	c.country = 'brasil'
 	and
+	-- Exija que esteja incluso na assinatura. O sistema final poderia variar
+	-- esse filtro dependendo das prefenrências do usuário quando a alugueis
+	-- e compras.
 	ps.included_subscription = true
 	and
-	ae.artist_name ilike '%Brad Pitt%'
+	-- Filtro principal, busca por parte do nome do ator ignorando diferenças
+	-- entre maiúsculas e minúsculas.
+	ae.artist_name ilike '%Brad Pit%'
 	and
+	-- Não é de o interesse do usúario, séries em que o ator não tem uma participação
+	-- significante.
 	ae.role_type = 'Main';
 
 
--- Atualiza a nota do filme a partir das avaliações deixadas pelos perfis
+--------------------------------------------------------------------------------
+-- 2. Atualiza nota de todos os Filmes
+--------------------------------------------------------------------------------
 with
+	-- Obtem todas as avaliações validas para o filme.
+	-- Note que o apenas a nota da última sessão de um perfil sobre um filme, 
+	-- deve ser retornada.
 	ratings as ( 
 		select 
 			distinct on (ms.movie_name, ms.movie_year, ms.user, ms.profile)
@@ -42,12 +61,15 @@ with
 			movie_session ms
 		where
 			rating is not null
+		-- Janela ordenada pelo horário da sessão para possibilitar
+		-- selecionar o último valor de nota.
 		window w as (
 			partition by ms.movie_name, ms.movie_year, ms.user, ms.profile
 			order by start_time asc
 			rows between unbounded preceding and unbounded following
 		)
 	),
+	-- Calcula a nota média por filme
 	avg_ratings as (
 		select
 			r.movie_name, r.movie_year, avg(r.last_rating) as avg_rating
@@ -55,6 +77,7 @@ with
 		group by 
 			(r.movie_name, r.movie_year);
 	)
+-- Atualiza a nota de todo filme com avaliações
 update
 	movie m
 set	
@@ -67,8 +90,13 @@ where
 	m.year = ar.movie_year;
 
 
--- Atualiza a nota da temporada a partir das avaliações deixadas pelos perfis
+--------------------------------------------------------------------------------
+-- 3. Atualiza a nota de todas as Temporadas
+--------------------------------------------------------------------------------
 with
+	-- Obtem todas as avaliações validas para os episódios de uma temporada.
+	-- Note que o apenas a nota da última sessão de um perfil sobre um episódido, 
+	-- deve ser retornada.
 	episode_ratings as ( 
 		select 
 			distinct on (es.episode, es.user, es.profile)
@@ -83,6 +111,7 @@ with
 			rows between unbounded preceding and unbounded following
 		)
 	),
+	-- Calcula a nota média por temporada
 	avg_season_ratings as (
 		select
 			e.tv_show_name, e.tv_show_year, e.season, avg(er.last_rating) as avg_rating
@@ -93,6 +122,7 @@ with
 		group by 
 			(e.tv_show_name, e.tv_show_year, e.season)
 	)
+-- Atualiza a nota de toda temporada com avaliações em seus episódios
 update
 	season s
 set	
@@ -106,8 +136,12 @@ where
 	and
 	s.number = asr.season;
 
--- Atualiza a nota da série com base na nota das temporadas.
+
+--------------------------------------------------------------------------------
+-- 4. Atualiza a nota de todas as Séries
+--------------------------------------------------------------------------------
 with
+	-- Calcula a nota média por série
 	avg_tv_show_ratings as (
 		select
 			s.tv_show_name, s.tv_show_year, avg(s.rating) as avg_rating
@@ -115,6 +149,7 @@ with
 		group by
 			(s.tv_show_name, s.tv_show_year)
 	)
+-- Atualiza a nota de toda série com notas em suas temporadas.
 update
 	tv_show ts
 set
@@ -127,19 +162,30 @@ where
 	r.tv_show_year = ts.year;
 
 
--- Seleciona os próximos episódios a assitir ou continuar a assistir, 
--- com base nos episódios já assistidos e a disponibilidade na assinatura.
+--------------------------------------------------------------------------------
+-- 5. Continue assitindo
+--------------------------------------------------------------------------------
 select distinct on (e.tv_show_name, e.tv_show_year, e.season)
 	e.tv_show_name, e.tv_show_year, e.number, s.sinopsis,
 	
+	-- O episódio para assistir
 	case last_value(es.finished) over w
-		when true then last_value(e.number) over w + 1
-		else last_value(e.number) over w
+		when true
+			-- Se a sessão foi finalizada, retorne o próximo episódio.
+			then last_value(e.number) over w + 1
+		else
+			-- Senão retorne o episódio a continuar
+			last_value(e.number) over w
 	end as episode_to_watch,
 	
 	case last_value(es.finished) over w
-		when true then '0'
-		else last_value(es.watched_duration) over w
+		when true
+			-- Se a sessão foi finalizada, o episódio a assistir é novo, e deve ser reproduzido
+			-- pelo começo.
+			then '0'
+		else
+			-- Senão o episódio deve ser continuado de onde foi parado. 
+			last_value(es.watched_duration) over w
 	end as continue_at
 
 from subscribe sub
@@ -158,13 +204,19 @@ inner join episode_session es
 	on (es.episode = e.id)
 	
 inner join season s
-	on (e.tv_show_name = s.tv_show_name and e.tv_show_year = s.tv_show_year and e.season = s.number)
+	on (e.tv_show_name = s.tv_show_name and e.tv_show_year = s.tv_show_year
+		and e.season = s.number)
 
 where
+	-- Filtra pelo usuário logado
 	sub."user" = 'dmdemoura'
 	and
+	-- Filtra pelo país em que usuário se encontra.
 	c.country = 'brasil'
 	and
+	-- Exija que esteja incluso na assinatura. O sistema final poderia variar
+	-- esse filtro dependendo das prefenrências do usuário quando a alugueis
+	-- e compras.
 	ps.included_subscription = true
 
 window w as (
@@ -174,9 +226,9 @@ window w as (
 );
 
 
--- Seleciona todas artistas ordenados por uma "nota de artista", calculada fazendo 
--- uma média das notas de todos os filmes e séries em que o artista teve uma atuação
--- principal em.
+--------------------------------------------------------------------------------
+-- 6. Ranking de atores
+--------------------------------------------------------------------------------
 with 
 	-- Seleciona a média da nota dos filmes, e a quantidade de filmes feitos por cada artista.
 	artist_movie_ratings as (
