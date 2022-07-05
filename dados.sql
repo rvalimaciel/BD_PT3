@@ -1,5 +1,6 @@
 set search_path to streaming_service_agregator, public;
 
+
 insert into admin_account
 values
 	('root', 'todo-use-real-hash'),
